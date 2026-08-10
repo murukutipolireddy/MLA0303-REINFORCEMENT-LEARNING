@@ -1,0 +1,60 @@
+import random
+
+states = ["Start", "Middle", "Attack", "Check", "Win", "Lose"]
+
+actions = {
+    "Start": ["Develop", "Attack"],
+    "Middle": ["Attack", "Defend"],
+    "Attack": ["Check", "Retreat"],
+    "Check": ["Win", "Lose"]
+}
+
+rewards = {
+    ("Start", "Develop"): 2,
+    ("Start", "Attack"): 3,
+    ("Middle", "Attack"): 5,
+    ("Middle", "Defend"): 1,
+    ("Attack", "Check"): 10,
+    ("Attack", "Retreat"): -2,
+    ("Check", "Win"): 100,
+    ("Check", "Lose"): -100
+}
+
+def next_state(state, action):
+    if state == "Start":
+        return "Middle"
+    elif state == "Middle":
+        return "Attack"
+    elif state == "Attack":
+        return "Check"
+    elif state == "Check":
+        return "Win" if action == "Win" else "Lose"
+
+state = "Start"
+total_reward = 0
+
+print("Chess Game Simulation")
+
+while state not in ["Win", "Lose"]:
+    available_actions = actions[state]
+
+    if state == "Check":
+        action = random.choice(available_actions)
+    else:
+        action = max(
+            available_actions,
+            key=lambda a: rewards.get((state, a), -999)
+        )
+
+    reward = rewards[(state, action)]
+    next_s = next_state(state, action)
+
+    print("State:", state)
+    print("Action:", action)
+    print("Reward:", reward)
+
+    total_reward += reward
+    state = next_s
+
+print("Final State:", state)
+print("Total Reward:", total_reward)
