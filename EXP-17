@@ -1,0 +1,26 @@
+# Simple Hierarchical RL
+
+tasks = {
+    "Clean House": [
+        "Go Kitchen",
+        "Clean Kitchen",
+        "Go Bedroom",
+        "Clean Bedroom"
+    ],
+
+    "Prepare Food": [
+        "Go Kitchen",
+        "Get Ingredients",
+        "Cook Food"
+    ]
+}
+
+def execute_task(task):
+
+    print("\nTask:", task)
+
+    for action in tasks[task]:
+        print("Executing:", action)
+
+execute_task("Clean House")
+execute_task("Prepare Food")
