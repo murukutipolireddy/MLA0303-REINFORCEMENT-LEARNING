@@ -1,0 +1,25 @@
+# Bellman Equation
+
+states = {
+    "A": {"B": 2, "C": 5},
+    "B": {"C": 1},
+    "C": {}
+}
+
+V = {
+    "A": 0,
+    "B": 0,
+    "C": 0
+}
+
+for i in range(5):
+    for state in states:
+        if states[state]:
+            V[state] = min(
+                cost + V[next_state]
+                for next_state, cost in states[state].items()
+            )
+
+print("Optimal Cost:")
+for state in V:
+    print(state, ":", V[state])
