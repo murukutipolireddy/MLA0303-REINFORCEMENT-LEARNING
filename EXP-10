@@ -1,0 +1,43 @@
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Dense
+
+# State:
+# [distance, battery]
+
+model = Sequential([
+    Dense(24, activation="relu", input_shape=(2,)),
+    Dense(24, activation="relu"),
+    Dense(2, activation="linear")
+])
+
+model.compile(
+    optimizer="adam",
+    loss="mse"
+)
+
+states = np.array([
+    [10, 100],
+    [8, 80],
+    [6, 60],
+    [4, 40],
+    [2, 20]
+])
+
+targets = np.array([
+    [10, 5],
+    [8, 4],
+    [6, 3],
+    [4, 2],
+    [2, 10]
+])
+
+model.fit(states, targets, epochs=50, verbose=0)
+
+test = np.array([[5, 50]])
+
+prediction = model.predict(test, verbose=0)
+
+print("Q-values:", prediction)
+print("Best Action:", np.argmax(prediction))
