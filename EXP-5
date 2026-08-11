@@ -1,0 +1,30 @@
+import random
+
+rewards = [2, 5, 3]
+
+Q = [0, 0, 0]
+count = [0, 0, 0]
+
+epsilon = 0.1
+
+for i in range(100):
+    if random.random() < epsilon:
+        action = random.randint(0, 2)
+    else:
+        action = Q.index(max(Q))
+
+    reward = rewards[action]
+
+    count[action] += 1
+
+    Q[action] += (
+        reward - Q[action]
+    ) / count[action]
+
+print("Advertisement Q-values:")
+
+for i in range(3):
+    print("Advertisement", i + 1, ":", round(Q[i], 2))
+
+print("Best Advertisement:",
+      Q.index(max(Q)) + 1)
