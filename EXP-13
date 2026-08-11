@@ -1,0 +1,34 @@
+import numpy as np
+
+actions = ["Left", "Right", "Forward", "Backward"]
+
+theta = np.zeros(4)
+
+learning_rate = 0.1
+
+for episode in range(100):
+
+    probabilities = np.exp(theta) / np.sum(np.exp(theta))
+
+    action = np.random.choice(
+        4,
+        p=probabilities
+    )
+
+    reward = 10 if action == 2 else -1
+
+    theta[action] += learning_rate * reward
+
+print("Learned Policy:")
+
+probabilities = np.exp(theta) / np.sum(np.exp(theta))
+
+for i in range(4):
+    print(
+        actions[i],
+        ":",
+        round(probabilities[i], 3)
+    )
+
+print("Best Parking Action:",
+      actions[np.argmax(probabilities)])
