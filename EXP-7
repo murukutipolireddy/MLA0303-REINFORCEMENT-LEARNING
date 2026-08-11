@@ -1,0 +1,34 @@
+# Value Iteration for Taxi Routing
+
+states = ["A", "B", "C", "D", "Goal"]
+
+routes = {
+    "A": {"B": 2, "C": 5},
+    "B": {"C": 2, "D": 4},
+    "C": {"D": 1},
+    "D": {"Goal": 2},
+    "Goal": {}
+}
+
+V = {state: 0 for state in states}
+
+for i in range(20):
+
+    new_V = V.copy()
+
+    for state in states:
+
+        if state == "Goal":
+            continue
+
+        new_V[state] = min(
+            cost + V[next_state]
+            for next_state, cost in routes[state].items()
+        )
+
+    V = new_V
+
+print("Optimal Travel Costs:")
+
+for state in states:
+    print(state, ":", V[state])
