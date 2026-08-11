@@ -1,0 +1,27 @@
+import numpy as np
+
+actions = ["Left", "Right", "Stay"]
+
+# DQN
+dqn = np.array([2.0, 5.0, 3.0])
+
+# Double DQN
+ddqn = np.array([2.5, 5.5, 3.2])
+
+# Dueling DQN
+dueling = np.array([3.0, 6.0, 4.0])
+
+# Prioritized Experience Replay
+per = np.array([2.2, 6.5, 3.5])
+
+print("DQN Best Action:",
+      actions[np.argmax(dqn)])
+
+print("Double DQN Best Action:",
+      actions[np.argmax(ddqn)])
+
+print("Dueling DQN Best Action:",
+      actions[np.argmax(dueling)])
+
+print("PER Best Action:",
+      actions[np.argmax(per)])
