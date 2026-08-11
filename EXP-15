@@ -1,0 +1,33 @@
+import numpy as np
+
+states = ["Standing", "Moving", "Falling"]
+
+actions = ["Left", "Right"]
+
+# PPO policy
+ppo_policy = {
+    "Standing": [0.6, 0.4],
+    "Moving": [0.5, 0.5],
+    "Falling": [0.2, 0.8]
+}
+
+# TRPO policy
+trpo_policy = {
+    "Standing": [0.55, 0.45],
+    "Moving": [0.5, 0.5],
+    "Falling": [0.25, 0.75]
+}
+
+for state in states:
+
+    ppo_action = actions[
+        np.argmax(ppo_policy[state])
+    ]
+
+    trpo_action = actions[
+        np.argmax(trpo_policy[state])
+    ]
+
+    print(state)
+    print("PPO :", ppo_action)
+    print("TRPO:", trpo_action)
