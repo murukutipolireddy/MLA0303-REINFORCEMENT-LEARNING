@@ -1,0 +1,44 @@
+import random
+
+states = [
+    "Safe",
+    "Obstacle",
+    "Victim"
+]
+
+actions = [
+    "Move",
+    "Search"
+]
+
+belief = {
+    "Safe": 0.5,
+    "Obstacle": 0.3,
+    "Victim": 0.2
+}
+
+print("Initial Belief:")
+print(belief)
+
+for step in range(5):
+
+    action = random.choice(actions)
+
+    if action == "Search":
+
+        if random.random() < belief["Victim"]:
+            reward = 10
+            print("Victim Found!")
+        else:
+            reward = -1
+            print("Victim Not Found")
+
+    else:
+        reward = -1
+        print("Robot Moves")
+
+    print("Action:", action)
+    print("Reward:", reward)
+
+print("Final Belief:")
+print(belief)
