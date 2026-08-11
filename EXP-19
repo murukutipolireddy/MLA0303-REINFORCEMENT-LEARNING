@@ -1,0 +1,23 @@
+import random
+
+agents = ["Robot 1", "Robot 2", "Robot 3"]
+
+tasks = [
+    "Task A",
+    "Task B",
+    "Task C"
+]
+
+for agent in agents:
+
+    task = random.choice(tasks)
+
+    reward = random.randint(5, 10)
+
+    print(
+        agent,
+        "->",
+        task,
+        "Reward:",
+        reward
+    )
