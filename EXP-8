@@ -1,0 +1,49 @@
+import random
+
+Q = {
+    ("Dirty", "Clean"): 0,
+    ("Dirty", "Move"): 0,
+    ("Clean", "Clean"): 0,
+    ("Clean", "Move"): 0
+}
+
+returns = {key: [] for key in Q}
+
+for episode in range(100):
+
+    state = random.choice(["Dirty", "Clean"])
+    episode_data = []
+
+    for step in range(5):
+
+        action = random.choice(["Clean", "Move"])
+
+        if action == "Clean" and state == "Dirty":
+            reward = 10
+            next_state = "Clean"
+        else:
+            reward = -1
+            next_state = state
+
+        episode_data.append((state, action, reward))
+        state = next_state
+
+    G = 0
+
+    for state, action, reward in reversed(episode_data):
+
+        G += reward
+
+        if (state, action) not in returns:
+            returns[(state, action)] = []
+
+        returns[(state, action)].append(G)
+
+for key in Q:
+    if returns[key]:
+        Q[key] = sum(returns[key]) / len(returns[key])
+
+print("Monte Carlo Q-values:")
+
+for key, value in Q.items():
+    print(key, round(value, 2))
