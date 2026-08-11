@@ -1,0 +1,40 @@
+import numpy as np
+
+states = 4
+actions = 2
+
+actor = np.zeros((states, actions))
+critic = np.zeros(states)
+
+alpha = 0.1
+gamma = 0.9
+
+for episode in range(100):
+
+    state = 0
+
+    for step in range(10):
+
+        action = np.argmax(actor[state])
+
+        next_state = min(state + 1, states - 1)
+
+        reward = 10 if next_state == states - 1 else -1
+
+        td_error = (
+            reward +
+            gamma * critic[next_state]
+            - critic[state]
+        )
+
+        critic[state] += alpha * td_error
+
+        actor[state, action] += alpha * td_error
+
+        state = next_state
+
+print("Actor:")
+print(actor)
+
+print("\nCritic:")
+print(critic)
