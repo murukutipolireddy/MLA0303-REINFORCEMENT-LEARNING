@@ -1,0 +1,34 @@
+# Warehouse Robot MDP
+
+states = ["A", "B", "C", "D", "Goal"]
+
+actions = ["Right", "Left"]
+
+transitions = {
+    ("A", "Right"): "B",
+    ("B", "Right"): "C",
+    ("C", "Right"): "D",
+    ("D", "Right"): "Goal"
+}
+
+rewards = {
+    ("A", "Right"): -1,
+    ("B", "Right"): -1,
+    ("C", "Right"): -1,
+    ("D", "Right"): 10
+}
+
+state = "A"
+total_reward = 0
+
+while state != "Goal":
+    action = "Right"
+    next_state = transitions[(state, action)]
+    reward = rewards[(state, action)]
+
+    print(state, "->", next_state, "Reward:", reward)
+
+    total_reward += reward
+    state = next_state
+
+print("Total Reward:", total_reward)
