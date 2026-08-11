@@ -1,0 +1,26 @@
+import numpy as np
+
+tasks = {
+    "Task A": [1, 2, 3],
+    "Task B": [3, 2, 1],
+    "Task C": [2, 3, 1]
+}
+
+meta_knowledge = np.mean(
+    list(tasks.values()),
+    axis=0
+)
+
+print("Meta Learned Knowledge:")
+print(meta_knowledge)
+
+new_task = [2, 3, 1]
+
+prediction = np.abs(
+    meta_knowledge - new_task
+)
+
+print("Adaptation Error:",
+      prediction)
+
+print("New Task Learned Quickly!")
